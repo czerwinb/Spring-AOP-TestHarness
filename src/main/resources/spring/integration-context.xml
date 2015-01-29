@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:c="http://www.springframework.org/schema/c"
+	   xmlns:int="http://www.springframework.org/schema/integration"
+	   xmlns:file="http://www.springframework.org/schema/integration/file"
+	   xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+	   		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+
+	<!-- Inbound -->
+	<file:inbound-channel-adapter directory="requests-input/" filename-regex=".*\.req"
+								  channel="inboundFileChannel">
+		<int:poller fixed-rate="1000"/>
+	</file:inbound-channel-adapter>
+
+	<int:channel id="inboundFileChannel"/>
+	<file:file-to-string-transformer input-channel="inboundFileChannel" output-channel="inboundMessageChannel"/>
+
+
+	<!-- Request transformation -->
+	<int:channel id="inboundMessageChannel"/>
+	<int:transformer input-channel="inboundMessageChannel" output-channel="requestsChannel"
+					 expression="T(pl.czerwinb.presentation.aop.testharness.domain.Request).forUserId(payload)"/>
+
+
+	<!-- Request enrichment -->
+	<int:channel id="requestsChannel"/>
+	<int:service-activator input-channel="requestsChannel" output-channel="enrichedRequestsChannel"
+						   ref="requestProcessor"/>
+
+
+	<!-- Output -->
+	<int:channel id="enrichedRequestsChannel"/>
+	<int:logging-channel-adapter channel="enrichedRequestsChannel" level="INFO"/>
+
+
+	<!-- Forward errorQueue to EMS broker -->
+	<jms:outbound-channel-adapter channel="errorChannel" destination="errorsQueue"
+								  connection-factory="jmsConnectionFactory"/>
+
+	<!-- Services' beans -->
+	<beans profile="prod">
+		<bean id="ldapUserCatalog" class="pl.czerwinb.presentation.aop.testharness.services.LdapUsersCatalog"
+			  c:serverAddress="172.0.0.1" c:serverPort="373"/>
+	</beans>
+
+	<beans profile="test">
+		<bean id="dummyUserCatalog" class="pl.czerwinb.presentation.aop.testharness.services.DummyUsersCatalog"/>
+	</beans>
+
+</beans>

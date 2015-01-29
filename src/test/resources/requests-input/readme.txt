@@ -1,0 +1,1 @@
+Each request file must have an extension *.req and it must contain a single line with request id.
