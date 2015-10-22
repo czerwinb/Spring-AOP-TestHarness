@@ -11,9 +11,13 @@
 	</appender>
 
 	<root>
-		<level value="DEBUG"/>
+		<level value="INFO"/>
 		<appender-ref ref="console"/>
 	</root>
+
+	<logger name="org.springframework.integration.handler.LoggingHandler">
+		<level value="INFO"/>
+	</logger>
 
 	<category name="org.springframework">
 		<level value="ERROR"/>

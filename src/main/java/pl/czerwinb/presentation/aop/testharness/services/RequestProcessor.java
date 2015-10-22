@@ -19,7 +19,7 @@ public class RequestProcessor {
 
 	@ServiceActivator
 	public Request process(Request request) {
-		LOG.debug("Processing request: " + request.getUserId());
+		LOG.info("Processing request: " + request.getUserId());
 		enrichWithUserEmail(request);
 		return request;
 	}

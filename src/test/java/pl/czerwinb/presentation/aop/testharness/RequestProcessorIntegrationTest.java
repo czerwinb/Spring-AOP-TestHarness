@@ -28,7 +28,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class RequestProcessorIntegrationTest {
 
-	private static final ClassPathResource REQUESTS_INPUT_PATH_RESOURCE = new ClassPathResource("requests-input");
+	private static final ClassPathResource REQUESTS_INPUT_PATH_RESOURCE = new ClassPathResource("/tmp/requests-input");
 	private static final int FIVE_SECONDS = 5000;
 
 	@Autowired private PollableChannel enrichedRequestsWireTapChannel;

@@ -10,12 +10,11 @@
 	   		http://www.springframework.org/schema/integration/file http://www.springframework.org/schema/integration/file/spring-integration-file.xsd http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
 
 	<!-- Inbound -->
-	<file:inbound-channel-adapter directory="requests-input/" filename-regex=".*\.req"
-								  channel="inboundFileChannel">
+	<file:inbound-channel-adapter id="inboundFileChannel" auto-create-directory="true"
+								  directory="/tmp/requests-input/" filename-regex=".*\.req">
 		<int:poller fixed-rate="1000"/>
 	</file:inbound-channel-adapter>
 
-	<int:channel id="inboundFileChannel"/>
 	<file:file-to-string-transformer input-channel="inboundFileChannel" output-channel="inboundMessageChannel"/>
 
 

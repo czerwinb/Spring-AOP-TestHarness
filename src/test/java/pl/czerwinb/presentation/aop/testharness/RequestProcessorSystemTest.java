@@ -59,7 +59,7 @@ public class RequestProcessorSystemTest {
 	}
 
 	private static File createTemporaryFile(String fileName) throws IOException {
-		File inputFile = File.createTempFile(fileName, ".req", new File("requests-input"));
+		File inputFile = File.createTempFile(fileName, ".req", new File("/tmp/requests-input"));
 		inputFile.deleteOnExit();
 		return inputFile;
 	}

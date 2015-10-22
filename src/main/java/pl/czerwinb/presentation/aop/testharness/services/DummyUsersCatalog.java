@@ -6,6 +6,6 @@ public class DummyUsersCatalog implements UsersCatalog {
 
 	@Override
 	public String getUserEmail(UUID userId) {
-		return "user@domain.com";
+		return userId + "@example.com";
 	}
 }
