@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:p="http://www.springframework.org/schema/p"
 	   xmlns:int="http://www.springframework.org/schema/integration"
 	   xmlns:jms="http://www.springframework.org/schema/integration/jms"
+	   xmlns="http://www.springframework.org/schema/beans"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
 	   		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
@@ -11,7 +11,7 @@
 	<import resource="classpath:spring/ems-client-context.xml"/>
 
 	<bean id="jmxClientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean"
-		  p:serviceUrl="service:jmx:rmi://localhost/jndi/rmi://127.0.0.1:1099/aop-demo"/>
+		  p:serviceUrl="service:jmx:rmi://127.0.0.1/jndi/rmi://127.0.0.1:1099/aop-demo"/>
 
 	<bean id="usersCatalogFailureSimulatorControllerProxy" class="org.springframework.jmx.access.MBeanProxyFactoryBean"
 		  p:objectName="aop-demo:name=UsersCatalogFailureSimulatorController"

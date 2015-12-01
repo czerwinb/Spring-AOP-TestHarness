@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:amq="http://activemq.apache.org/schema/core"
+	   xmlns="http://www.springframework.org/schema/beans"
 	   xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	   		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
 	<amq:broker persistent="false" useJmx="true">
 		<amq:transportConnectors>
-			<amq:transportConnector uri="tcp://localhost:1313"/>
+			<amq:transportConnector uri="tcp://127.0.0.1:1313"/>
 		</amq:transportConnectors>
 	</amq:broker>
 
