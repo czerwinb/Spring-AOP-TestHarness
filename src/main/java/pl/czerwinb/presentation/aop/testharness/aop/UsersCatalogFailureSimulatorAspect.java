@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -14,6 +15,7 @@ import static java.lang.String.format;
 
 @Aspect
 @Component
+@ManagedResource(objectName = "aop-demo:name=UsersCatalogFailureSimulatorController")
 public class UsersCatalogFailureSimulatorAspect implements UsersCatalogFailureSimulatorController {
 
 	private static Logger LOG = Logger.getLogger(UsersCatalogFailureSimulatorAspect.class);
